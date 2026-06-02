@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>INJUSTICE SERVICES — Injustice: Gods Among Us Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a227;
+    --gold-light: #f0c040;
+    --red: #c0152a;
+    --dark: #080b10;
+    --darker: #04060a;
+    --panel: #0d1220;
+    --panel-border: #1e2d4a;
+    --text: #d4dce8;
+    --muted: #6a7a92;
+    --glow-gold: 0 0 20px rgba(201,162,39,0.5), 0 0 60px rgba(201,162,39,0.2);
+    --glow-red: 0 0 20px rgba(192,21,42,0.6), 0 0 60px rgba(192,21,42,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--darker);
+    color: var(--text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 16px;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.6;
+  }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    padding: 2rem;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, rgba(192,21,42,0.15) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 80% at 20% 80%, rgba(201,162,39,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 80% 20%, rgba(30,45,74,0.4) 0%, transparent 60%),
+      linear-gradient(180deg, #04060a 0%, #080b10 40%, #0a0d16 100%);
+  }
+
+  .hero-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(201,162,39,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,162,39,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridShift 20s linear infinite;
+  }
+
+  @keyframes gridShift {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(60px); }
+  }
+
+  .lightning {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .lightning::before, .lightning::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent 0%, var(--gold-light) 30%, transparent 100%);
+    opacity: 0;
+    animation: flash 6s infinite;
+  }
+
+  .lightning::before { left: 25%; animation-delay: 1s; }
+  .lightning::after { right: 30%; animation-delay: 3.5s; }
+
+  @keyframes flash {
+    0%, 94%, 100% { opacity: 0; }
+    95% { opacity: 0.6; }
+    96% { opacity: 0; }
+    97% { opacity: 0.8; }
+    98% { opacity: 0; }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.5em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 14vw, 12rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    color: #fff;
+    text-shadow: var(--glow-gold);
+    margin-bottom: 0.2em;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.5s forwards;
+  }
+
+  .hero-title span {
+    display: block;
+    color: var(--gold);
+    font-size: 0.55em;
+    letter-spacing: 0.15em;
+    text-shadow: var(--glow-gold);
+  }
+
+  .hero-sub {
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.7s forwards;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.9s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .btn {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 1rem 2.5rem;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: #000;
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    box-shadow: var(--glow-gold);
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+    box-shadow: 0 0 30px rgba(201,162,39,0.8), 0 0 80px rgba(201,162,39,0.4);
+    transform: scale(1.03);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--panel-border);
+    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  .scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--muted);
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    animation: bounce 2s infinite;
+  }
+
+  .scroll-indicator::after {
+    content: '';
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(var(--gold), transparent);
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-8px); }
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.2rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(4,6,10,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,162,39,0.15);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-shadow: var(--glow-gold);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  .nav-badge {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.6rem;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 30px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── PRODUCT GRID ── */
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .product-card {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px));
+  }
+
+  .product-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(201,162,39,0.05) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .product-card:hover {
+    border-color: var(--gold);
+    box-shadow: var(--glow-gold);
+    transform: translateY(-4px);
+  }
+
+  .product-card:hover::before { opacity: 1; }
+
+  .card-banner {
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-banner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 40%, var(--panel) 100%);
+  }
+
+  .card-body { padding: 1.5rem; }
+
+  .card-tag {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    padding: 0.25rem 0.6rem;
+    border: 1px solid;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+
+  .tag-currency { color: var(--gold); border-color: var(--gold); }
+  .tag-character { color: #4ea8de; border-color: #4ea8de; }
+  .tag-gear { color: #c084fc; border-color: #c084fc; }
+  .tag-bundle { color: var(--red); border-color: var(--red); }
+
+  .card-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
+  }
+
+  .card-desc {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-price {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .card-price .currency { font-size: 0.65em; color: var(--muted); }
+
+  .add-btn {
+    font-family: 'Orbitron', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    padding: 0.5rem 1rem;
+    background: rgba(201,162,39,0.1);
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .add-btn:hover {
+    background: var(--gold);
+    color: #000;
+    box-shadow: var(--glow-gold);
+  }
+
+  /* ── BANNER STRIP ── */
+  .marquee-strip {
+    background: var(--red);
+    padding: 0.75rem 0;
+    overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .marquee-track {
+    display: flex;
+    gap: 3rem;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+
+  .marquee-track span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    color: rgba(255,255,255,0.9);
+    flex-shrink: 0;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ── HOW IT WORKS ── */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+
+  .step {
+    position: relative;
+    padding: 2rem;
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+  }
+
+  .step-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    line-height: 1;
+    color: rgba(201,162,39,0.12);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .step-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.6rem;
+  }
+
+  .step-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ── HEROES ROSTER ── */
+  .roster-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .hero-chip {
+    background: var(--panel);
+    border: 1px solid var(--panel-border);
+    padding: 1rem;
+    text-align: center;
+    transition: all 0.25s;
+    cursor: default;
+  }
+
+  .hero-chip:hover {
+    border-color: rgba(201,162,39,0.5);
+    background: rgba(201,162,39,0.05);
+    transform: scale(1.04);
+  }
+
+  .hero-chip .emoji { font-size: 2rem; display: block; margin-bottom: 0.4rem; }
+  .hero-chip .name { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); }
+  .hero-chip .tier { font-family: 'Orbitron', monospace; font-size: 0.55rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* ── TRUST STRIP ── */
+  .trust-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2px;
+    background: var(--panel-border);
+    border: 1px solid var(--panel-border);
+    margin: 4rem 0;
+  }
+
+  .trust-item {
+    background: var(--panel);
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+
+  .trust-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+  .trust-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.1em; margin-bottom: 0.3rem; }
+  .trust-desc { font-size: 0.8rem; color: var(--muted); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--darker);
+    border-top: 1px solid var(--panel-border);
+    padding: 3rem 2rem;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-tagline {
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+
+  .footer-links a {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--gold); }
+
+  .footer-legal {
+    font-size: 0.7rem;
+    color: rgba(106,122,146,0.6);
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(4,6,10,0.95);
+    z-index: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    backdrop-filter: blur(8px);
+  }
+
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+
+  .modal {
+    background: var(--panel);
+    border: 1px solid var(--gold);
+    max-width: 500px;
+    width: 90%;
+    padding: 2.5rem;
+    clip-path: polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+    box-shadow: var(--glow-gold);
+    transform: translateY(20px);
+    transition: transform 0.3s;
+  }
+
+  .modal-overlay.active .modal { transform: translateY(0); }
+
+  .modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+    color: var(--gold);
+  }
+
+  .modal-item { font-size: 1rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .modal-price { font-family: 'Orbitron', monospace; font-size: 1.5rem; color: var(--gold); margin-bottom: 1.5rem; }
+
+  .modal-form { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .modal-form input, .modal-form select {
+    background: var(--darker);
+    border: 1px solid var(--panel-border);
+    color: var(--text);
+    padding: 0.75rem 1rem;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .modal-form input:focus, .modal-form select:focus { border-color: var(--gold); }
+
+  .modal-form select option { background: var(--panel); }
+
+  .modal-actions { display: flex; gap: 1rem; margin-top: 0.5rem; }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+
+  .modal-close:hover { color: var(--text); }
+
+  /* ── CART COUNTER ── */
+  .cart-btn {
+    position: relative;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+
+  .cart-btn:hover { background: rgba(201,162,39,0.1); }
+
+  .cart-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: var(--red);
+    color: #fff;
+    font-size: 0.55rem;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    display: none;
+  }
+
+  .cart-count.visible { display: flex; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hero-title { font-size: clamp(3.5rem, 16vw, 6rem); }
+    section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">INJUSTICE SERVICES</div>
+  <ul class="nav-links">
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#roster">Roster</a></li>
+    <li><a href="#how">How It Works</a></li>
+  </ul>
+  <button class="cart-btn" onclick="openCart()">
+    🛒 Cart
+    <span class="cart-count" id="cartCount">0</span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<header>
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="lightning"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Injustice: Gods Among Us Mobile Store</p>
+    <h1 class="hero-title">
+      INJUSTICE
+      <span>SERVICES</span>
+    </h1>
+    <p class="hero-sub">Power Credits. Nth Metal. Characters & More.</p>
+    <div class="hero-cta">
+      <a href="#shop" class="btn btn-primary">Browse Shop</a>
+      <a href="#how" class="btn btn-secondary">How It Works</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">Scroll</div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>💸 CHEAP</span>
+    <span>⭐ MAX GEAR</span>
+    <span>📦 AFFORDABLE BUNDLES</span>
+    <span>✅ TRUSTED</span>
+    <span>⚡ FAST DELIVERY</span>
+    <!-- duplicate for loop -->
+    <span>💸 CHEAP</span>
+    <span>⭐ MAX GEAR</span>
+    <span>📦 AFFORDABLE BUNDLES</span>
+    <span>✅ TRUSTED</span>
+    <span>⚡ FAST DELIVERY</span>
+  </div>
+</div>
+
+<!-- SHOP -->
+<section id="shop">
+  <p class="section-label">Catalog</p>
+  <h2 class="section-title">THE SHOP</h2>
+  <p style="color:var(--muted);font-size:1rem;max-width:600px;line-height:1.7;">Power your roster with premium currency packs, rare characters, and legendary gear — delivered fast.</p>
+
+  <div class="products-grid" id="productsGrid"></div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="background:var(--panel);max-width:100%;padding:6rem 2rem;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <p class="section-label">Process</p>
+    <h2 class="section-title">HOW IT WORKS</h2>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-number">01</div>
+        <div class="step-title">Choose Your Package</div>
+        <p class="step-desc">Browse our catalog. Pick the currency amount, character, or gear that fits your needs and budget.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">02</div>
+        <div class="step-title">Place Your Order</div>
+        <p class="step-desc">Fill in your in-game username and select a delivery method. All orders processed manually for safety.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">03</div>
+        <div class="step-title">Secure Payment</div>
+        <p class="step-desc">Pay via your preferred method. We confirm your order and begin processing immediately.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">04</div>
+        <div class="step-title">Receive Your Goods</div>
+        <p class="step-desc">Delivery typically within 1–24 hours. We'll contact you on Discord or your chosen channel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROSTER -->
+<section id="roster">
+  <p class="section-label">Characters</p>
+  <h2 class="section-title">AVAILABLE ROSTER</h2>
+  <p style="color:var(--muted);font-size:1rem;line-height:1.7;margin-bottom:0.5rem;">We can source characters from the full roster. Hover to see who's available.</p>
+  <div class="roster-grid" id="rosterGrid"></div>
+</section>
+
+<!-- TRUST -->
+<section style="padding:0 2rem 6rem;">
+  <div class="trust-strip">
+    <div class="trust-item">
+      <div class="trust-icon">⚡</div>
+      <div class="trust-label">Fast Delivery</div>
+      <p class="trust-desc">Most orders fulfilled within hours</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🔒</div>
+      <div class="trust-label">Secure Orders</div>
+      <p class="trust-desc">No passwords — ever required</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">💬</div>
+      <div class="trust-label">24/7 Support</div>
+      <p class="trust-desc">Discord & email support always on</p>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">🔁</div>
+      <div class="trust-label">Refund Policy</div>
+      <p class="trust-desc">Issues? We make it right</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">INJUSTICE SERVICES</div>
+  <p class="footer-tagline">Power Credits. Nth Metal. Characters & More.</p>
+  <div class="footer-links">
+    <a href="#">Discord</a>
+    <a href="#">Terms of Service</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Contact</a>
+    <a href="#">Refund Policy</a>
+  </div>
+  <p class="footer-legal">
+    Injustice Services is an independent fan-operated marketplace and is not affiliated with, endorsed by, or connected to Warner Bros. Interactive Entertainment or NetherRealm Studios. Injustice: Gods Among Us is a trademark of Warner Bros. Entertainment Inc. All character names and likenesses are property of their respective owners. Buyers assume full responsibility for compliance with the game's Terms of Service.
+  </p>
+</footer>
+
+<!-- ORDER MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" style="position:relative;">
+    <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    <div class="modal-title" id="modalTitle">Order Item</div>
+    <p class="modal-item" id="modalItem"></p>
+    <p class="modal-price" id="modalPrice"></p>
+    <div class="modal-form">
+      <input type="text" placeholder="Your In-Game Username" id="igUsername" />
+      <input type="text" placeholder="Discord Handle (e.g. User#1234)" id="discordHandle" />
+      <select id="payMethod">
+        <option value="">— Select Payment Method —</option>
+        <option>PayPal (Friends & Family)</option>
+        <option>Cash App</option>
+        <option>Venmo</option>
+        <option>Crypto (BTC/ETH)</option>
+      </select>
+      <p style="font-size:0.8rem;color:var(--muted);line-height:1.5;">After submitting, we'll contact you on Discord to confirm payment details and arrange delivery.</p>
+      <div class="modal-actions">
+        <button class="btn btn-primary" onclick="submitOrder()" style="flex:1;font-size:0.7rem;">Submit Order</button>
+        <button class="btn btn-secondary" onclick="closeModalBtn()" style="padding:1rem 1.5rem;">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──
+const products = [
+  { id:1, emoji:'⚡', bg:'#1a1206', tag:'currency', label:'Currency', name:'Starter Credits', desc:'5,000 Power Credits — perfect for beginner players looking to upgrade their first characters.', price:3.99 },
+  { id:2, emoji:'💎', bg:'#0d1a2a', tag:'currency', label:'Currency', name:'Pro Credits Pack', desc:'25,000 Power Credits to unlock gear and level up your favorites fast.', price:14.99 },
+  { id:3, emoji:'👑', bg:'#1a1206', tag:'currency', label:'Currency', name:'Elite Credits Pack', desc:'75,000 Power Credits — the serious player\'s choice for maximum progression.', price:39.99 },
+  { id:4, emoji:'🦇', bg:'#0d0d1a', tag:'character', label:'Character', name:'Batman (Regime)', desc:'The Dark Knight in full authoritarian armor. Gold card, fully maxed stats available.', price:9.99 },
+  { id:5, emoji:'⚡', bg:'#0a1608', tag:'character', label:'Character', name:'The Flash (Metahuman)', desc:'Gold-tier speedster with max-level stats. Includes signature gear set.', price:12.99 },
+  { id:6, emoji:'🔴', bg:'#1a0d0d', tag:'character', label:'Character', name:'Superman (Godfall)', desc:'Maxed red-suit Superman. One of the most powerful cards in the roster.', price:14.99 },
+  { id:7, emoji:'🔱', bg:'#0d0f1a', tag:'gear', label:'Gear', name:'Legendary Gear Bundle', desc:'3 pieces of legendary-tier gear for your chosen character. Max star, max level.', price:11.99 },
+  { id:8, emoji:'🏆', bg:'#1a1206', tag:'bundle', label:'Bundle', name:'Starter Bundle', desc:'10,000 Credits + 1 Gold Character of your choice. The best way to get started.', price:17.99 },
+  { id:9, emoji:'💜', bg:'#120d1a', tag:'character', label:'Character', name:'Joker (Insurgency)', desc:'Chaos-class Joker card at max level with full gear set included.', price:10.99 },
+];
+
+const roster = [
+  {emoji:'🦇', name:'Batman', tier:'Gold'},
+  {emoji:'⚡', name:'The Flash', tier:'Gold'},
+  {emoji:'🔴', name:'Superman', tier:'Gold'},
+  {emoji:'💚', name:'Green Lantern', tier:'Gold'},
+  {emoji:'🌊', name:'Aquaman', tier:'Gold'},
+  {emoji:'🤺', name:'Green Arrow', tier:'Silver'},
+  {emoji:'💜', name:'Joker', tier:'Gold'},
+  {emoji:'🔱', name:'Wonder Woman', tier:'Gold'},
+  {emoji:'❄️', name:'Killer Frost', tier:'Silver'},
+  {emoji:'🧬', name:'Nightwing', tier:'Gold'},
+  {emoji:'🐦', name:'Hawkgirl', tier:'Silver'},
+  {emoji:'🌑', name:'Black Adam', tier:'Gold'},
+  {emoji:'🔥', name:'Bane', tier:'Silver'},
+  {emoji:'🌿', name:'Swamp Thing', tier:'Silver'},
+  {emoji:'⚔️', name:'Deathstroke', tier:'Gold'},
+  {emoji:'🩸', name:'Lobo', tier:'Gold'},
+];
+
+const tagClass = { currency:'tag-currency', character:'tag-character', gear:'tag-gear', bundle:'tag-bundle' };
+const tagBgMap = { currency:'rgba(201,162,39,0.08)', character:'rgba(78,168,222,0.08)', gear:'rgba(192,132,252,0.08)', bundle:'rgba(192,21,42,0.08)' };
+
+let cartCount = 0;
+let currentProduct = null;
+
+// ── RENDER PRODUCTS ──
+const grid = document.getElementById('productsGrid');
+products.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'product-card';
+  card.innerHTML = `
+    <div class="card-banner" style="background:${p.bg};">
+      <span style="position:relative;z-index:1;">${p.emoji}</span>
+    </div>
+    <div class="card-body">
+      <span class="card-tag ${tagClass[p.tag]}">${p.label}</span>
+      <div class="card-name">${p.name}</div>
+      <p class="card-desc">${p.desc}</p>
+      <div class="card-footer">
+        <div class="card-price"><span class="currency">USD </span>$${p.price.toFixed(2)}</div>
+        <button class="add-btn" onclick='openModal(${JSON.stringify(p)})'>Order Now</button>
+      </div>
+    </div>
+  `;
+  grid.appendChild(card);
+});
+
+// ── RENDER ROSTER ──
+const rGrid = document.getElementById('rosterGrid');
+roster.forEach(h => {
+  const chip = document.createElement('div');
+  chip.className = 'hero-chip';
+  chip.innerHTML = `<span class="emoji">${h.emoji}</span><div class="name">${h.name}</div><div class="tier">${h.tier} Card</div>`;
+  rGrid.appendChild(chip);
+});
+
+// ── MODAL ──
+function openModal(product) {
+  currentProduct = product;
+  document.getElementById('modalTitle').textContent = product.name;
+  document.getElementById('modalItem').textContent = product.desc;
+  document.getElementById('modalPrice').textContent = `$${product.price.toFixed(2)} USD`;
+  document.getElementById('igUsername').value = '';
+  document.getElementById('discordHandle').value = '';
+  document.getElementById('payMethod').value = '';
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModalBtn();
+}
+
+function closeModalBtn() {
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+
+function submitOrder() {
+  const username = document.getElementById('igUsername').value.trim();
+  const discord = document.getElementById('discordHandle').value.trim();
+  const payment = document.getElementById('payMethod').value;
+  if (!username || !discord || !payment) {
+    alert('Please fill in all fields before submitting.');
+    return;
+  }
+  cartCount++;
+  const el = document.getElementById('cartCount');
+  el.textContent = cartCount;
+  el.classList.add('visible');
+  closeModalBtn();
+  setTimeout(() => {
+    alert(`✅ Order received for "${currentProduct.name}"!\n\nWe'll reach out on Discord (${discord}) shortly to confirm payment and arrange delivery. Thanks!`);
+  }, 200);
+}
+
+function openCart() {
+  if (cartCount === 0) {
+    alert('Your cart is empty. Browse the shop to add items!');
+  } else {
+    alert(`You have ${cartCount} order(s) pending.\n\nPlease check your Discord for delivery updates.`);
+  }
+}
+
+// ── SMOOTH SCROLL ──
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
+</body>
+</html>
